@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  display   String?
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  signups   TournamentSignup[]
+}
+
+model Tournament {
+  id          String   @id @default(cuid())
+  name        String
+  type        String
+  date        DateTime
+  startTime   String
+  location    String
+  maxPlayers  Int
+  description String?
+  rules       String?
+  prizes      String?
+  status      String   @default("OPEN")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  signups     TournamentSignup[]
+}
+
+model TournamentSignup {
+  id           String      @id @default(cuid())
+  tournamentId String
+  tournament   Tournament  @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  userId       String?
+  user         User?       @relation(fields: [userId], references: [id])
+  playerName   String
+  email        String?
+  phone        String?
+  notes        String?
+  paid         Boolean     @default(false)
+  signedUpAt   DateTime    @default(now())
+  
+  @@unique([tournamentId, playerName])
+}
+
