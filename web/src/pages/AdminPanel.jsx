@@ -50,7 +50,7 @@ const AdminPanel = () => {
       setEditingTournament(null);
       await fetchTournaments();
     } catch (err) {
-      throw new Error(err.message || 'Failed to save tournament');
+      throw new Error(err.message || t('admin.failedSave'));
     }
   };
 
@@ -68,20 +68,20 @@ const AdminPanel = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!confirm('Are you sure you want to delete this tournament?')) return;
+    if (!confirm(t('admin.confirmDelete'))) return;
     
     try {
       await api.deleteTournament(id);
       await fetchTournaments();
     } catch (err) {
-      alert('Failed to delete tournament');
+      alert(t('admin.failedDelete'));
     }
   };
 
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="text-center text-mtg-white/70">Loading...</div>
+        <div className="text-center text-mtg-white/70">{t('admin.loading')}</div>
       </div>
     );
   }
@@ -105,11 +105,11 @@ const AdminPanel = () => {
         <table className="w-full">
           <thead>
             <tr className="border-b border-white/10">
-              <th className="text-left py-3 px-4 text-mtg-white/70">Name</th>
-              <th className="text-left py-3 px-4 text-mtg-white/70">Type</th>
-              <th className="text-left py-3 px-4 text-mtg-white/70">Date</th>
-              <th className="text-left py-3 px-4 text-mtg-white/70">Signups</th>
-              <th className="text-right py-3 px-4 text-mtg-white/70">Actions</th>
+              <th className="text-left py-3 px-4 text-mtg-white/70">{t('admin.name')}</th>
+              <th className="text-left py-3 px-4 text-mtg-white/70">{t('admin.type')}</th>
+              <th className="text-left py-3 px-4 text-mtg-white/70">{t('admin.date')}</th>
+              <th className="text-left py-3 px-4 text-mtg-white/70">{t('admin.signups')}</th>
+              <th className="text-right py-3 px-4 text-mtg-white/70">{t('admin.actions')}</th>
             </tr>
           </thead>
           <tbody>

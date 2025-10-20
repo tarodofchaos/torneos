@@ -27,7 +27,7 @@ const SignupModal = ({ tournament, onSubmit, onCancel }) => {
     e.preventDefault();
     
     if (!formData.playerName.trim()) {
-      setError('Player name is required');
+      setError(t('signup.playerNameRequired'));
       return;
     }
 
@@ -37,7 +37,7 @@ const SignupModal = ({ tournament, onSubmit, onCancel }) => {
     try {
       await onSubmit(formData);
     } catch (err) {
-      setError(err.message || 'Failed to sign up');
+      setError(err.message || t('signup.failedSignup'));
       setLoading(false);
     }
   };
@@ -72,20 +72,20 @@ const SignupModal = ({ tournament, onSubmit, onCancel }) => {
               {t('tournament.tournamentFull')}
             </p>
             <p className="text-mtg-white/70 mt-2">
-              This tournament has reached maximum capacity
+              {t('signup.fullMessage')}
             </p>
             <button
               onClick={onCancel}
               className="btn-secondary mt-6"
             >
-              Close
+              {t('signup.close')}
             </button>
           </div>
         ) : (
           <>
             <div className="mb-6 p-4 bg-mtg-blue/10 border border-mtg-blue/20 rounded-lg">
               <p className="text-sm text-mtg-white/80">
-                <span className="font-semibold text-mtg-blue">{spotsLeft}</span> spots remaining
+                {t('signup.spotsRemaining', { count: spotsLeft })}
               </p>
               <p className="text-xs text-mtg-white/60 mt-1">
                 {new Date(tournament.date).toLocaleDateString()} • {tournament.startTime} • {tournament.location}
@@ -95,7 +95,7 @@ const SignupModal = ({ tournament, onSubmit, onCancel }) => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-mtg-white/80 mb-1">
-                  Player Name * <span className="text-xs text-mtg-white/50">(Required)</span>
+                  {t('signup.playerName')} * <span className="text-xs text-mtg-white/50">({t('signup.required')})</span>
                 </label>
                 <input
                   type="text"
@@ -104,13 +104,13 @@ const SignupModal = ({ tournament, onSubmit, onCancel }) => {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-mtg-white placeholder-mtg-white/40 focus:outline-none focus:ring-2 focus:ring-mtg-blue"
-                  placeholder="Your name"
+                  placeholder={t('signup.yourNamePlaceholder')}
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-mtg-white/80 mb-1">
-                  Email <span className="text-xs text-mtg-white/50">(Optional - for updates)</span>
+                  {t('signup.email')} <span className="text-xs text-mtg-white/50">({t('signup.emailOptional')})</span>
                 </label>
                 <input
                   type="email"
@@ -118,13 +118,13 @@ const SignupModal = ({ tournament, onSubmit, onCancel }) => {
                   value={formData.email}
                   onChange={handleChange}
                   className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-mtg-white placeholder-mtg-white/40 focus:outline-none focus:ring-2 focus:ring-mtg-blue"
-                  placeholder="your.email@example.com"
+                  placeholder={t('signup.emailPlaceholder')}
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-mtg-white/80 mb-1">
-                  Phone <span className="text-xs text-mtg-white/50">(Optional)</span>
+                  {t('signup.phone')} <span className="text-xs text-mtg-white/50">({t('signup.optional')})</span>
                 </label>
                 <input
                   type="tel"
@@ -132,13 +132,13 @@ const SignupModal = ({ tournament, onSubmit, onCancel }) => {
                   value={formData.phone}
                   onChange={handleChange}
                   className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-mtg-white placeholder-mtg-white/40 focus:outline-none focus:ring-2 focus:ring-mtg-blue"
-                  placeholder="+34 123 456 789"
+                  placeholder={t('signup.phonePlaceholder')}
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-mtg-white/80 mb-1">
-                  Notes <span className="text-xs text-mtg-white/50">(Optional)</span>
+                  {t('signup.notes')} <span className="text-xs text-mtg-white/50">({t('signup.optional')})</span>
                 </label>
                 <textarea
                   name="notes"
@@ -146,7 +146,7 @@ const SignupModal = ({ tournament, onSubmit, onCancel }) => {
                   onChange={handleChange}
                   rows="2"
                   className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-mtg-white placeholder-mtg-white/40 focus:outline-none focus:ring-2 focus:ring-mtg-blue"
-                  placeholder="Any special requirements or comments..."
+                  placeholder={t('signup.notesPlaceholder')}
                 />
               </div>
 
@@ -162,20 +162,20 @@ const SignupModal = ({ tournament, onSubmit, onCancel }) => {
                   disabled={loading}
                   className="btn-primary flex-1"
                 >
-                  {loading ? 'Signing up...' : t('tournament.signup')}
+                  {loading ? t('signup.signingUp') : t('tournament.signup')}
                 </button>
                 <button
                   type="button"
                   onClick={onCancel}
                   className="btn-secondary flex-1"
                 >
-                  Cancel
+                  {t('form.cancel')}
                 </button>
               </div>
             </form>
 
             <p className="text-xs text-mtg-white/50 text-center mt-4">
-              No account needed! Just enter your name to sign up.
+              {t('signup.noAccountNeeded')}
             </p>
           </>
         )}

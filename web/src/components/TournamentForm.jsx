@@ -58,7 +58,7 @@ const TournamentForm = ({ tournament, onSubmit, onCancel }) => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-mtg-white/80 mb-1">
-              Name *
+              {t('form.name')} *
             </label>
             <input
               type="text"
@@ -67,21 +67,21 @@ const TournamentForm = ({ tournament, onSubmit, onCancel }) => {
               onChange={handleChange}
               required
               className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-mtg-white placeholder-mtg-white/40 focus:outline-none focus:ring-2 focus:ring-mtg-blue"
-              placeholder="Commander Night"
+              placeholder={t('form.namePlaceholder')}
             />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-mtg-white/80 mb-1">
-                Type *
+                {t('form.type')} *
               </label>
               <select
                 name="type"
                 value={formData.type}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-mtg-white focus:outline-none focus:ring-2 focus:ring-mtg-blue"
+                className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-mtg-white focus:outline-none focus:ring-2 focus:ring-mtg-blue [&>option]:bg-slate-800 [&>option]:text-white"
               >
                 <option value="Commander">Commander</option>
                 <option value="2HG">Two-Headed Giant (2HG)</option>
@@ -96,7 +96,7 @@ const TournamentForm = ({ tournament, onSubmit, onCancel }) => {
 
             <div>
               <label className="block text-sm font-medium text-mtg-white/80 mb-1">
-                Max Players *
+                {t('form.maxPlayers')} *
               </label>
               <input
                 type="number"
@@ -114,7 +114,7 @@ const TournamentForm = ({ tournament, onSubmit, onCancel }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-mtg-white/80 mb-1">
-                Date *
+                {t('form.date')} *
               </label>
               <input
                 type="date"
@@ -128,7 +128,7 @@ const TournamentForm = ({ tournament, onSubmit, onCancel }) => {
 
             <div>
               <label className="block text-sm font-medium text-mtg-white/80 mb-1">
-                Start Time *
+                {t('form.startTime')} *
               </label>
               <input
                 type="time"
@@ -143,7 +143,7 @@ const TournamentForm = ({ tournament, onSubmit, onCancel }) => {
 
           <div>
             <label className="block text-sm font-medium text-mtg-white/80 mb-1">
-              Location *
+              {t('form.location')} *
             </label>
             <input
               type="text"
@@ -152,13 +152,13 @@ const TournamentForm = ({ tournament, onSubmit, onCancel }) => {
               onChange={handleChange}
               required
               className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-mtg-white placeholder-mtg-white/40 focus:outline-none focus:ring-2 focus:ring-mtg-blue"
-              placeholder="Local Game Store, Huelva"
+              placeholder={t('form.locationPlaceholder')}
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-mtg-white/80 mb-1">
-              Description
+              {t('form.description')}
             </label>
             <textarea
               name="description"
@@ -166,13 +166,13 @@ const TournamentForm = ({ tournament, onSubmit, onCancel }) => {
               onChange={handleChange}
               rows="3"
               className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-mtg-white placeholder-mtg-white/40 focus:outline-none focus:ring-2 focus:ring-mtg-blue"
-              placeholder="Brief description of the tournament..."
+              placeholder={t('form.descriptionPlaceholder')}
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-mtg-white/80 mb-1">
-              Rules
+              {t('form.rules')}
             </label>
             <textarea
               name="rules"
@@ -180,13 +180,13 @@ const TournamentForm = ({ tournament, onSubmit, onCancel }) => {
               onChange={handleChange}
               rows="3"
               className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-mtg-white placeholder-mtg-white/40 focus:outline-none focus:ring-2 focus:ring-mtg-blue"
-              placeholder="Tournament rules and format details..."
+              placeholder={t('form.rulesPlaceholder')}
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-mtg-white/80 mb-1">
-              Prizes
+              {t('form.prizes')}
             </label>
             <textarea
               name="prizes"
@@ -194,20 +194,20 @@ const TournamentForm = ({ tournament, onSubmit, onCancel }) => {
               onChange={handleChange}
               rows="2"
               className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-mtg-white placeholder-mtg-white/40 focus:outline-none focus:ring-2 focus:ring-mtg-blue"
-              placeholder="Prize structure (e.g., 1st: Booster Box, 2nd: 12 Boosters...)"
+              placeholder={t('form.prizesPlaceholder')}
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-mtg-white/80 mb-1">
-              Status *
+              {t('form.status')} *
             </label>
             <select
               name="status"
               value={formData.status}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-mtg-white focus:outline-none focus:ring-2 focus:ring-mtg-blue"
+              className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-mtg-white focus:outline-none focus:ring-2 focus:ring-mtg-blue [&>option]:bg-slate-800 [&>option]:text-white"
             >
               <option value="OPEN">OPEN</option>
               <option value="FULL">FULL</option>
@@ -222,14 +222,14 @@ const TournamentForm = ({ tournament, onSubmit, onCancel }) => {
               disabled={loading}
               className="btn-primary flex-1"
             >
-              {loading ? 'Saving...' : tournament ? 'Update Tournament' : 'Create Tournament'}
+              {loading ? t('form.saving') : tournament ? t('form.updateTournament') : t('form.createTournament')}
             </button>
             <button
               type="button"
               onClick={onCancel}
               className="btn-secondary flex-1"
             >
-              Cancel
+              {t('form.cancel')}
             </button>
           </div>
         </form>

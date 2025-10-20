@@ -31,25 +31,25 @@ const SignupManagementModal = ({ tournament, onClose, onUpdate }) => {
       await fetchSignups();
       onUpdate?.();
     } catch (err) {
-      alert('Failed to update payment status');
+      alert(t('manage.failedUpdate'));
     }
   };
 
   const handleRemove = async (signup) => {
-    if (!confirm(`Remove ${signup.playerName} from this tournament?`)) return;
+    if (!confirm(t('manage.confirmRemove', { name: signup.playerName }))) return;
     
     try {
       await api.cancelSignup(signup.id);
       await fetchSignups();
       onUpdate?.();
     } catch (err) {
-      alert('Failed to remove signup');
+      alert(t('manage.failedRemove'));
     }
   };
 
   const handleEmail = (email) => {
     if (!email) {
-      alert('No email provided for this participant');
+      alert(t('manage.noEmail'));
       return;
     }
     window.open(`mailto:${email}?subject=${encodeURIComponent(`Tournament: ${tournament.name}`)}`);
@@ -57,12 +57,12 @@ const SignupManagementModal = ({ tournament, onClose, onUpdate }) => {
 
   const handleWhatsApp = (phone) => {
     if (!phone) {
-      alert('No phone number provided for this participant');
+      alert(t('manage.noPhone'));
       return;
     }
     // Remove spaces and special characters
     const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
-    window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hola! Regarding ${tournament.name} tournament...`)}`);
+    window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(t('manage.whatsAppMessage', { tournament: tournament.name }))}`);
   };
 
   const paidCount = signups.filter(s => s.paid).length;
@@ -75,7 +75,7 @@ const SignupManagementModal = ({ tournament, onClose, onUpdate }) => {
           <div>
             <h3 className="text-2xl font-bold text-mtg-white flex items-center gap-2">
               <Users className="w-6 h-6" />
-              Manage Signups
+              {t('manage.title')}
             </h3>
             <p className="text-sm text-mtg-white/70 mt-1">
               {tournament.name}
@@ -92,26 +92,26 @@ const SignupManagementModal = ({ tournament, onClose, onUpdate }) => {
         {/* Summary Stats */}
         <div className="grid grid-cols-3 gap-4 mb-6">
           <div className="p-4 bg-mtg-blue/10 border border-mtg-blue/20 rounded-lg">
-            <p className="text-sm text-mtg-white/70">Total Signups</p>
+            <p className="text-sm text-mtg-white/70">{t('manage.totalSignups')}</p>
             <p className="text-2xl font-bold text-mtg-blue">{signups.length}/{tournament.maxPlayers}</p>
           </div>
           <div className="p-4 bg-mtg-green/10 border border-mtg-green/20 rounded-lg">
-            <p className="text-sm text-mtg-white/70">Paid</p>
+            <p className="text-sm text-mtg-white/70">{t('manage.paid')}</p>
             <p className="text-2xl font-bold text-mtg-green">{paidCount}</p>
           </div>
           <div className="p-4 bg-mtg-red/10 border border-mtg-red/20 rounded-lg">
-            <p className="text-sm text-mtg-white/70">Unpaid</p>
+            <p className="text-sm text-mtg-white/70">{t('manage.unpaid')}</p>
             <p className="text-2xl font-bold text-mtg-red">{unpaidCount}</p>
           </div>
         </div>
 
         {loading ? (
           <div className="text-center py-8 text-mtg-white/70">
-            Loading signups...
+            {t('manage.loading')}
           </div>
         ) : signups.length === 0 ? (
           <div className="text-center py-8 text-mtg-white/70">
-            No signups yet
+            {t('manage.noSignups')}
           </div>
         ) : (
           <div className="space-y-3">
@@ -132,7 +132,7 @@ const SignupManagementModal = ({ tournament, onClose, onUpdate }) => {
                       {signup.paid && (
                         <span className="px-2 py-0.5 bg-mtg-green/20 text-mtg-green text-xs rounded-full flex items-center gap-1">
                           <Check className="w-3 h-3" />
-                          Paid
+                          {t('manage.paid')}
                         </span>
                       )}
                     </div>
@@ -154,7 +154,7 @@ const SignupManagementModal = ({ tournament, onClose, onUpdate }) => {
                         </p>
                       )}
                       <p className="text-xs text-mtg-white/50">
-                        Signed up: {new Date(signup.signedUpAt).toLocaleString()}
+                        {t('manage.signedUp')}: {new Date(signup.signedUpAt).toLocaleString()}
                       </p>
                     </div>
                   </div>
@@ -168,7 +168,7 @@ const SignupManagementModal = ({ tournament, onClose, onUpdate }) => {
                           ? 'bg-mtg-green/20 text-mtg-green hover:bg-mtg-green/30'
                           : 'bg-white/10 text-mtg-white/70 hover:bg-mtg-green/20 hover:text-mtg-green'
                       }`}
-                      title={signup.paid ? 'Mark as unpaid' : 'Mark as paid'}
+                      title={signup.paid ? t('manage.markAsUnpaid') : t('manage.markAsPaid')}
                     >
                       <DollarSign className="w-4 h-4" />
                     </button>
@@ -177,7 +177,7 @@ const SignupManagementModal = ({ tournament, onClose, onUpdate }) => {
                       <button
                         onClick={() => handleEmail(signup.email)}
                         className="p-2 rounded-lg bg-white/10 text-mtg-white/70 hover:bg-mtg-blue/20 hover:text-mtg-blue transition"
-                        title="Send email"
+                        title={t('manage.sendEmail')}
                       >
                         <Mail className="w-4 h-4" />
                       </button>
@@ -187,7 +187,7 @@ const SignupManagementModal = ({ tournament, onClose, onUpdate }) => {
                       <button
                         onClick={() => handleWhatsApp(signup.phone)}
                         className="p-2 rounded-lg bg-white/10 text-mtg-white/70 hover:bg-mtg-green/20 hover:text-mtg-green transition"
-                        title="Send WhatsApp"
+                        title={t('manage.sendWhatsApp')}
                       >
                         <MessageCircle className="w-4 h-4" />
                       </button>
@@ -196,7 +196,7 @@ const SignupManagementModal = ({ tournament, onClose, onUpdate }) => {
                     <button
                       onClick={() => handleRemove(signup)}
                       className="p-2 rounded-lg bg-white/10 text-mtg-white/70 hover:bg-mtg-red/20 hover:text-mtg-red transition"
-                      title="Remove signup"
+                      title={t('manage.removeSignup')}
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -212,7 +212,7 @@ const SignupManagementModal = ({ tournament, onClose, onUpdate }) => {
             onClick={onClose}
             className="btn-secondary w-full"
           >
-            Close
+            {t('manage.close')}
           </button>
         </div>
       </div>

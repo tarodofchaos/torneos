@@ -37,7 +37,7 @@ const Calendar = () => {
       await api.signup(selectedTournament.id, signupData);
       setSelectedTournament(null);
       await fetchTournaments(); // Refresh to show updated signup count
-      alert('Successfully signed up for the tournament!');
+      alert(t('calendar.signupSuccess'));
     } catch (err) {
       throw err; // Let the modal handle the error
     }
@@ -51,7 +51,7 @@ const Calendar = () => {
     return (
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="text-center text-mtg-white/70">
-          Loading tournaments...
+          {t('calendar.loading')}
         </div>
       </div>
     );
@@ -61,7 +61,7 @@ const Calendar = () => {
     return (
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="text-center text-mtg-red">
-          Error loading tournaments: {error}
+          {t('calendar.errorLoading')}: {error}
         </div>
       </div>
     );
@@ -71,7 +71,7 @@ const Calendar = () => {
     return (
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="text-center text-mtg-white/70">
-          No tournaments scheduled yet.
+          {t('calendar.noTournaments')}
         </div>
       </div>
     );
@@ -80,7 +80,7 @@ const Calendar = () => {
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
       <h2 className="text-3xl font-bold text-mtg-white mb-6">
-        Upcoming Tournaments
+        {t('calendar.title')}
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
